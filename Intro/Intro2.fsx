@@ -54,7 +54,9 @@ let e2v2 = eval e2 [("a", 314)];;
 let e3v  = eval e3 env;;
 
 let e4 = Prim("max", Var "c", Var "baf");;
-let e4v = eval e4 env;
-
+let e4v = eval e4 env;;
+let e5 = Prim("==", Var "a", CstI 20);;
+let e5v = eval e5 env;;
+let e5v2 = eval e5 [("a", 20)];;
 
 
