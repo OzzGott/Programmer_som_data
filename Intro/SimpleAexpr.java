@@ -72,9 +72,12 @@ public class SimpleAexpr {
     public static void main(String[] args) {
         Aexpr aexpr = new Add(new CstI(1), new Mul(new Var("x"), new CstI(2)));
         Aexpr aexpr2 = new Add(new CstI(17), new Var("z"));
+        Aexpr aexpr3 = new Add(new Mul(new CstI(17), new CstI(2)), new Var("z"));
+        Aexpr aexpr4 = new Mul((new Add(new CstI(6), new Var("x"))), new Sub(new CstI(67), new CstI(42)));
 
         System.out.println(aexpr.toString());
         System.out.println(aexpr2.toString());
-
+        System.out.println(aexpr3.toString());
+        System.out.println(aexpr4.toString());
     }
 }
