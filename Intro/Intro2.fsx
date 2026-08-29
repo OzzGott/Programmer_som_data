@@ -94,4 +94,25 @@ let ae2 = Mul(CstI 2, ae1);;
 let ae3 = Add(Var "x", Add( Var "y", Add(Var "z", Var "v")));;
 
 // (iii)
- 
+let rec fmt (a : aexpr) : string =
+    match a with
+    | CstI x -> string x
+    | Var v -> v
+    | Add(a1, a2) -> "(" + fmt a1 + "+" + fmt a2 + ")"
+    | Mul(a1, a2) -> "(" + fmt a1 + "*" + fmt a2 + ")"
+    | Sub(a1, a2) -> "(" +  fmt a1 + "-" + fmt a2 + ")"
+    | _ -> failwith "not implemented";;
+    
+// (iv)
+let rec simplify (a : aexpr) : aexpr =
+    match a with
+    | Add(e, CstI 0) -> e
+    | Add(CstI 0, e) -> e
+    | Sub(e, CstI 0) -> e
+    | Mul(CstI 1, e) -> e
+    | Mul(e, CstI 1) -> e
+    | Mul(CstI 0, e) -> CstI 0
+    | Mul(e, CstI 0) -> CstI 0
+    | Sub(e1, e2) when e1 = e2 -> CstI 0;;
+
+
