@@ -94,6 +94,7 @@ let ae2 = Mul(CstI 2, ae1);;
 let ae3 = Add(Var "x", Add( Var "y", Add(Var "z", Var "v")));;
 
 // (iii)
+
 let rec fmt (a : aexpr) : string =
     match a with
     | CstI x -> string x
@@ -111,8 +112,29 @@ let rec simplify (a : aexpr) : aexpr =
     | Sub(e, CstI 0) -> e
     | Mul(CstI 1, e) -> e
     | Mul(e, CstI 1) -> e
-    | Mul(CstI 0, e) -> CstI 0
-    | Mul(e, CstI 0) -> CstI 0
-    | Sub(e1, e2) when e1 = e2 -> CstI 0;;
+    | Mul(CstI 0, _) -> CstI 0
+    | Mul(_, CstI 0) -> CstI 0
+    | Sub(e1, e2) when e1 = e2 -> CstI 0
+    | _ -> a;;
 
-
+// (v)
+let rec diff (a : aexpr) x : aexpr =
+    match a with
+    | CstI _            -> CstI 0
+    | Var v             -> if v = x then CstI 1 else CstI 0
+    | Add (f, g)        -> Add(diff f x, diff g x)
+    | Sub (f, g)        -> Sub(diff f x, diff g x)
+    | Mul (f, g)        -> Add(Mul(diff f x, g) , Mul(f, diff g x))
+    
+// Exercise 1.3
+let rec fmt2 (a : aexpr) : string =
+    match a with
+    | CstI x -> string x
+    | Var v -> v
+    | Add(a1, a2) ->
+        "(" + fmt2 (simplify a1) + "+" + fmt2 (simplify a2) + ")"
+    | Mul(a1, a2) ->
+        "(" + fmt2 (simplify a1) + "*" + fmt2 (simplify a2) + ")"
+    | Sub(a1, a2) ->
+        "(" + fmt2 (simplify a1) + "+" + fmt2 (simplify a2) + ")"
+    | _ -> failwith "not implemented"
