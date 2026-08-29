@@ -107,14 +107,17 @@ let rec fmt (a : aexpr) : string =
 // (iv)
 let rec simplify (a : aexpr) : aexpr =
     match a with
-    | Add(e, CstI 0) -> e
-    | Add(CstI 0, e) -> e
-    | Sub(e, CstI 0) -> e
-    | Mul(CstI 1, e) -> e
-    | Mul(e, CstI 1) -> e
+    | Add(e, CstI 0) -> simplify e
+    | Add(CstI 0, e) -> simplify e
+    | Sub(e, CstI 0) -> simplify e
+    | Mul(CstI 1, e) -> simplify e
+    | Mul(e, CstI 1) -> simplify e
     | Mul(CstI 0, _) -> CstI 0
     | Mul(_, CstI 0) -> CstI 0
     | Sub(e1, e2) when e1 = e2 -> CstI 0
+    | Add(e1, e2)    -> simplify (Add(simplify e1, simplify e2))
+    | Sub(e1, e2)    -> simplify (Sub(simplify e1, simplify e2))
+    | Mul(e1, e2)    -> simplify (Mul(simplify e1, simplify e2))
     | _ -> a;;
 
 // (v)
