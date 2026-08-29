@@ -107,6 +107,8 @@ let rec fmt (a : aexpr) : string =
 // (iv)
 let rec simplify (a : aexpr) : aexpr =
     match a with
+    | CstI n        -> CstI n
+    | Var v         -> Var v
     | Add(e, CstI 0) -> simplify e
     | Add(CstI 0, e) -> simplify e
     | Sub(e, CstI 0) -> simplify e
@@ -115,9 +117,9 @@ let rec simplify (a : aexpr) : aexpr =
     | Mul(CstI 0, _) -> CstI 0
     | Mul(_, CstI 0) -> CstI 0
     | Sub(e1, e2) when e1 = e2 -> CstI 0
-    | Add(e1, e2)    -> simplify (Add(simplify e1, simplify e2))
-    | Sub(e1, e2)    -> simplify (Sub(simplify e1, simplify e2))
-    | Mul(e1, e2)    -> simplify (Mul(simplify e1, simplify e2))
+    | Mul(e1, e2)    -> Mul(simplify e1, simplify e2)
+    | Sub(e1, e2)    -> Sub(simplify e1, simplify e2)
+    | Add(e1, e2)    -> Add(simplify e1, simplify e2)
     | _ -> a;;
 
 // (v)
@@ -129,15 +131,4 @@ let rec diff (a : aexpr) x : aexpr =
     | Sub (f, g)        -> Sub(diff f x, diff g x)
     | Mul (f, g)        -> Add(Mul(diff f x, g) , Mul(f, diff g x))
     
-// Exercise 1.3
-let rec fmt2 (a : aexpr) : string =
-    match a with
-    | CstI x -> string x
-    | Var v -> v
-    | Add(a1, a2) ->
-        "(" + fmt2 (simplify a1) + "+" + fmt2 (simplify a2) + ")"
-    | Mul(a1, a2) ->
-        "(" + fmt2 (simplify a1) + "*" + fmt2 (simplify a2) + ")"
-    | Sub(a1, a2) ->
-        "(" + fmt2 (simplify a1) + "+" + fmt2 (simplify a2) + ")"
-    | _ -> failwith "not implemented"
+// Exercise 1.4
