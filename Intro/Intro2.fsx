@@ -88,6 +88,10 @@ type aexpr =
      | Mul of aexpr * aexpr
      | Sub of aexpr * aexpr;;
      
+// (ii)
+let ae1 = Sub(Var "v", Add(Var "w", Var "z"));; 
+let ae2 = Mul(CstI 2, ae1);;
+let ae3 = Add(Var "x", Add( Var "y", Add(Var "z", Var "v")));;
 
-   
+// (iii)
  
