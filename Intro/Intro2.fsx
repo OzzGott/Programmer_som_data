@@ -119,8 +119,7 @@ let rec simplify (a : aexpr) : aexpr =
     | Sub(e1, e2) when e1 = e2 -> CstI 0
     | Mul(e1, e2)    -> Mul(simplify e1, simplify e2)
     | Sub(e1, e2)    -> Sub(simplify e1, simplify e2)
-    | Add(e1, e2)    -> Add(simplify e1, simplify e2)
-    | _ -> a;;
+    | Add(e1, e2)    -> Add(simplify e1, simplify e2) 
 
 // (v)
 let rec diff (a : aexpr) x : aexpr =
@@ -131,4 +130,3 @@ let rec diff (a : aexpr) x : aexpr =
     | Sub (f, g)        -> Sub(diff f x, diff g x)
     | Mul (f, g)        -> Add(Mul(diff f x, g) , Mul(f, diff g x))
     
-// Exercise 1.4
