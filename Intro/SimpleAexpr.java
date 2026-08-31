@@ -56,9 +56,6 @@ abstract class Binop extends Aexpr{
         Aexpr a1 = aexpr1.simplify();
         Aexpr a2 = aexpr2.simplify();
         
-        // | Add(e, CstI 0) -> simplify e
-        // | Add(CstI 0, e) -> simplify e
-        
         if (this instanceof Add) {
             if (a1 instanceof CstI && ((CstI) a1).getI() == 0) {
                 return a2.simplify();

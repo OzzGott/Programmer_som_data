@@ -129,4 +129,3 @@ let rec diff (a : aexpr) x : aexpr =
     | Add (f, g)        -> Add(diff f x, diff g x)
     | Sub (f, g)        -> Sub(diff f x, diff g x)
     | Mul (f, g)        -> Add(Mul(diff f x, g) , Mul(f, diff g x))
-    
