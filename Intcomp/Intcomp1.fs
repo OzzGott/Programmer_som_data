@@ -7,24 +7,26 @@
 
 module Intcomp1
 
+// 2.1: change Let from string * expr * expr to (string * expr) list * expr
 type expr = 
   | CstI of int
   | Var of string
-  | Let of string * expr * expr
+  | Let of (string * expr) list * expr  // let [x1 = 5+2, x2 = 3+4] in x1*x2
   | Prim of string * expr * expr;;
 
+
 (* Some closed expressions: *)
-
 let e0 = Prim("+", CstI 17, Prim("+", CstI 5, CstI 7));;
-let e1 = Let("z", CstI 17, Prim("+", Var "z", Var "z"));;
+let e1 = Let([("z", CstI 17)], Prim("+", Var "z", Var "z"));;
 
-let e2 = Let("z", CstI 17, 
-             Prim("+", Let("z", CstI 22, Prim("*", CstI 100, Var "z")),
+let e2 = Let([("z", CstI 17)], 
+             Prim("+", Let([("z", CstI 22)], Prim("*", CstI 100, Var "z")),
                        Var "z"));;
 
-let e3 = Let("z", Prim("-", CstI 5, CstI 4), 
+let e3 = Let([("z", Prim("-", CstI 5, CstI 4))], 
              Prim("*", CstI 100, Var "z"));;
-
+let etest = Let([("x1", Prim("+", Var "x1", CstI 7))], Prim("+", Var "x1", CstI 8))
+(*
 let e4 = Prim("+", Prim("+", CstI 20, Let("z", CstI 17, 
                                           Prim("+", Var "z", CstI 2))),
                    CstI 30);;
@@ -36,6 +38,7 @@ let e7 = Let("z", CstI 3, Let("y", Prim("+", Var "z", CstI 1), Prim("+", Var "z"
 let e8 = Let("z", Let("x", CstI 4, Prim("+", Var "x", CstI 5)), Prim("*", Var "z", CstI 2))
 let e9 = Let("z", CstI 3, Let("y", Prim("+", Var "z", CstI 1), Prim("+", Var "x", Var "y")))
 let e10 = Let("z", Prim("+", Let("x", CstI 4, Prim("+", Var "x", CstI 5)), Var "x"), Prim("*", Var "z", CstI 2))
+*)
 
 (* ---------------------------------------------------------------------- *)
 
@@ -46,21 +49,24 @@ let rec lookup env x =
     | []        -> failwith (x + " not found")
     | (y, v)::r -> if x=y then v else lookup r x;;
 
+//2.1. revised eval:
 let rec eval e (env : (string * int) list) : int =
     match e with
     | CstI i            -> i
-    | Var x             -> lookup env x 
-    | Let(x, erhs, ebody) -> 
+    | Var x             -> lookup env x
+    | Let ([], ebody) ->
+      eval ebody env
+    | Let((x, erhs)::rs, ebody)  -> 
       let xval = eval erhs env
       let env1 = (x, xval) :: env 
-      eval ebody env1
+      eval (Let (rs, ebody)) env1
     | Prim("+", e1, e2) -> eval e1 env + eval e2 env
     | Prim("*", e1, e2) -> eval e1 env * eval e2 env
     | Prim("-", e1, e2) -> eval e1 env - eval e2 env
     | Prim _            -> failwith "unknown primitive";;
 
 let run e = eval e [];;
-let res = List.map run [e1;e2;e3;e4;e5;e7]  (* e6 has free variables *)
+let res = List.map run [e1;e2;e3] //;e4;e5;e7]  (* e6 has free variables *)
 
 
 (* ---------------------------------------------------------------------- *)
@@ -77,6 +83,7 @@ let rec mem x vs =
 (* Checking whether an expression is closed.  The vs is 
    a list of the bound variables.  *)
 
+(*
 let rec closedin (e : expr) (vs : string list) : bool =
     match e with
     | CstI i -> true
@@ -90,7 +97,7 @@ let rec closedin (e : expr) (vs : string list) : bool =
 
 let closed1 e = closedin e [];;
 let _ = List.map closed1 [e1;e2;e3;e4;e5;e6;e7;e8;e9;e10]
-
+*)
 (* ---------------------------------------------------------------------- *)
 
 (* Substitution of expressions for variables *)
@@ -111,6 +118,7 @@ let rec remove env x =
     | (y, e)::r -> if x=y then r else (y, e) :: remove r x;;
 
 (* Naive substitution, may capture free variables: *)
+(*
 
 let rec nsubst (e : expr) (env : (string * expr) list) : expr =
     match e with
@@ -183,6 +191,7 @@ let e8s1a = subst e8s0 [("z", CstI 100)];;
 // Shows renaming of bound variable z (to z3), avoiding capture of free z
 let e9s1a = subst e9s0 [("y", Var "z")];;
 
+*)
 (* ---------------------------------------------------------------------- *)
 
 (* Free variables *)
@@ -209,18 +218,21 @@ let rec minus (xs, ys) =
 
 (* Find all variables that occur free in expression e *)
 
+// 2.2: revised to work with revised expr
 let rec freevars e : string list =
     match e with
     | CstI i -> []
     | Var x  -> [x]
-    | Let(x, erhs, ebody) -> 
-          union (freevars erhs, minus (freevars ebody, [x]))
+    | Let([], ebody) ->
+          freevars ebody    // no free variables in empty list of bindings, so we just call freevars on the body
+    | Let((x, erhs)::rs, ebody) -> 
+          union (freevars erhs, minus (freevars (Let(rs, ebody)), [x]))     // free variables in the rhs, plus free variables in the body except for x
     | Prim(ope, e1, e2) -> union (freevars e1, freevars e2);;
 
 (* Alternative definition of closed *)
 
 let closed2 e = (freevars e = []);;
-let _ = List.map closed2 [e1;e2;e3;e4;e5;e6;e7;e8;e9;e10]
+let _ = List.map closed2 [e1;e2;e3] //;e4;e5;e6;e7;e8;e9;e10]
 
 (* ---------------------------------------------------------------------- *)
 
@@ -242,16 +254,18 @@ let rec getindex vs x =
     | y::yr -> if x=y then 0 else 1 + getindex yr x;;
 
 (* Compiling from expr to texpr *)
-
-let rec tcomp (e : expr) (cenv : string list) : texpr =
+                                                                
+let rec tcomp (e : expr) (cenv : string list) : texpr =         
     match e with
     | CstI i -> TCstI i
     | Var x  -> TVar (getindex cenv x)
-    | Let(x, erhs, ebody) -> 
-      let cenv1 = x :: cenv 
-      TLet(tcomp erhs cenv, tcomp ebody cenv1)
+    | Let([], ebody) ->                         // if list of bindings is empty, just compile the body with the same compile-time environment
+        tcomp ebody cenv
+    | Let((x, erhs)::rs, ebody) ->              // if list of bindings is not empty, 
+      let cenv1 = x :: cenv                     // add the new variable to the compile-time environment
+      TLet(tcomp erhs cenv, tcomp (Let(rs, ebody)) cenv1)       // compile the rhs with the current compile-time environment then compile the body with the new variable added to the compile-time environment
     | Prim(ope, e1, e2) -> TPrim(ope, tcomp e1 cenv, tcomp e2 cenv);;
-
+(*
 (* Evaluation of target expressions with variable indexes.  The
    run-time environment renv is a list of variable values (ints).  *)
 
@@ -384,3 +398,4 @@ let intsToFile (inss : int list) (fname : string) =
 
 
 (* -----------------------------------------------------------------  *)
+*)
