@@ -67,6 +67,10 @@ abstract class Binop extends Aexpr{
         } else if (this instanceof Sub) {
             if (a2 instanceof CstI && ((CstI) a2).getI() == 0) {
                 return a1.simplify();
+            } else if (a1 instanceof CstI && a2 instanceof CstI && ((CstI) a1).getI() == ((CstI) a2).getI()) {
+                return new CstI(0);
+            } else if (a1.toString().equals(a2.toString())) {
+                return new CstI(0);
             } else {
                 return new Sub(a1, a2);
             }
