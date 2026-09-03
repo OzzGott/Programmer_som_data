@@ -95,7 +95,7 @@ let ae3 = Add(Var "x", Add( Var "y", Add(Var "z", Var "v")));;
 
 // (iii)
 
-let rec fmt (a : aexpr) : string =
+let rec fmt (a : aexpr) : string =          // fmt Mul(Add(CstI 2, Var "x"), Var "y") = "(2+x)*y"
     match a with
     | CstI x -> string x
     | Var v -> v

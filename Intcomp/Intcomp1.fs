@@ -11,8 +11,9 @@ module Intcomp1
 type expr = 
   | CstI of int
   | Var of string
-  | Let of (string * expr) list * expr  // let [x1 = 5+2] in x1*x1
+  | Let of (string * expr) list * expr  // let [x1 = 5+2, x2 = 3+4] in x1*x2
   | Prim of string * expr * expr;;
+
 
 (* Some closed expressions: *)
 let e0 = Prim("+", CstI 17, Prim("+", CstI 5, CstI 7));;
@@ -258,11 +259,11 @@ let rec tcomp (e : expr) (cenv : string list) : texpr =
     match e with
     | CstI i -> TCstI i
     | Var x  -> TVar (getindex cenv x)
-    | Let([], ebody) ->
+    | Let([], ebody) ->                         // if list of bindings is empty, just compile the body with the same compile-time environment
         tcomp ebody cenv
-    | Let((x, erhs)::rs, ebody) -> 
-      let cenv1 = x :: cenv 
-      TLet(tcomp erhs cenv, tcomp (Let(rs, ebody)) cenv1)
+    | Let((x, erhs)::rs, ebody) ->              // if list of bindings is not empty, 
+      let cenv1 = x :: cenv                     // add the new variable to the compile-time environment
+      TLet(tcomp erhs cenv, tcomp (Let(rs, ebody)) cenv1)       // compile the rhs with the current compile-time environment then compile the body with the new variable added to the compile-time environment
     | Prim(ope, e1, e2) -> TPrim(ope, tcomp e1 cenv, tcomp e2 cenv);;
 (*
 (* Evaluation of target expressions with variable indexes.  The
