@@ -11,11 +11,10 @@ module Intcomp1
 type expr = 
   | CstI of int
   | Var of string
-  | Let of (string * expr) list * expr
+  | Let of (string * expr) list * expr  // let [x1 = 5+2] in x1*x1
   | Prim of string * expr * expr;;
 
 (* Some closed expressions: *)
-
 let e0 = Prim("+", CstI 17, Prim("+", CstI 5, CstI 7));;
 let e1 = Let([("z", CstI 17)], Prim("+", Var "z", Var "z"));;
 
@@ -224,9 +223,9 @@ let rec freevars e : string list =
     | CstI i -> []
     | Var x  -> [x]
     | Let([], ebody) ->
-          freevars ebody
+          freevars ebody    // no free variables in empty list of bindings, so we just call freevars on the body
     | Let((x, erhs)::rs, ebody) -> 
-          union (freevars erhs, minus (freevars ebody, [x]))
+          union (freevars erhs, minus (freevars (Let(rs, ebody)), [x]))     // free variables in the rhs, plus free variables in the body except for x
     | Prim(ope, e1, e2) -> union (freevars e1, freevars e2);;
 
 (* Alternative definition of closed *)
@@ -254,8 +253,8 @@ let rec getindex vs x =
     | y::yr -> if x=y then 0 else 1 + getindex yr x;;
 
 (* Compiling from expr to texpr *)
-
-let rec tcomp (e : expr) (cenv : string list) : texpr =
+                                                                
+let rec tcomp (e : expr) (cenv : string list) : texpr =         
     match e with
     | CstI i -> TCstI i
     | Var x  -> TVar (getindex cenv x)
@@ -263,7 +262,7 @@ let rec tcomp (e : expr) (cenv : string list) : texpr =
         tcomp ebody cenv
     | Let((x, erhs)::rs, ebody) -> 
       let cenv1 = x :: cenv 
-      TLet(tcomp erhs cenv, tcomp ebody cenv1)
+      TLet(tcomp erhs cenv, tcomp (Let(rs, ebody)) cenv1)
     | Prim(ope, e1, e2) -> TPrim(ope, tcomp e1 cenv, tcomp e2 cenv);;
 (*
 (* Evaluation of target expressions with variable indexes.  The
