@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<linker>
+  <assembly fullname="Intcomp">
+    <resource name="FSharpSignatureData.Intcomp" action="remove"></resource>
+    <resource name="FSharpSignatureCompressedData.Intcomp" action="remove"></resource>
+    <resource name="FSharpSignatureDataB.Intcomp" action="remove"></resource>
+    <resource name="FSharpSignatureCompressedDataB.Intcomp" action="remove"></resource>
+    <resource name="FSharpOptimizationData.Intcomp" action="remove"></resource>
+    <resource name="FSharpOptimizationCompressedData.Intcomp" action="remove"></resource>
+    <resource name="FSharpOptimizationDataB.Intcomp" action="remove"></resource>
+    <resource name="FSharpOptimizationCompressedDataB.Intcomp" action="remove"></resource>
+    <resource name="FSharpOptimizationInfo.Intcomp" action="remove"></resource>
+    <resource name="FSharpSignatureInfo.Intcomp" action="remove"></resource>
+  </assembly>
+</linker>
