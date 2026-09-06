@@ -403,12 +403,16 @@ let rec assemble (inss : sinstr list) : int list =
     | SSwap   :: insr -> 6 :: assemble insr;;
 
 
+(* 2.5: Compile an expression to a list of bytecodes. *)
+
+let bcompile (e : expr) (cenv : stackvalue list) : int list =
+    scomp e cenv |> assemble;;
+
+
 (* Output the integers in list inss to the text file called fname: *)
 
 let intsToFile (inss : int list) (fname : string) = 
     let text = String.concat " " (List.map string inss)
     System.IO.File.WriteAllText(fname, text);;
-
-
 
 (* -----------------------------------------------------------------  *)
