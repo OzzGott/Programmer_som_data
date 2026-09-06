@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mkx8XRdbbJ8=",
+  "dgSpecHash": "SB4xT5r0TQE=",
   "success": true,
-  "projectFilePath": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Intcomp/Intcomp.fsproj",
+  "projectFilePath": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_1/Intcomp/Intcomp.fsproj",
   "expectedPackageFiles": [
     "/Users/maja/.nuget/packages/fsharp.core/10.1.301/fsharp.core.10.1.301.nupkg.sha512"
   ],

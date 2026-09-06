@@ -113,11 +113,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Intcomp/Intcomp.fsproj",
+      "projectUniqueName": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_1/Intcomp/Intcomp.fsproj",
       "projectName": "Intcomp",
-      "projectPath": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Intcomp/Intcomp.fsproj",
+      "projectPath": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_1/Intcomp/Intcomp.fsproj",
       "packagesPath": "/Users/maja/.nuget/packages/",
-      "outputPath": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Intcomp/obj/",
+      "outputPath": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_1/Intcomp/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/maja/.nuget/NuGet/NuGet.Config"
