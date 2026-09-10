@@ -418,9 +418,9 @@ let intsToFile (inss : int list) (fname : string) =
 
 (* 2.5: Compile an expression to a list of bytecodes. *)
 
-let bcompile (e : expr) (cenv : stackvalue list) =
-    let inss = scomp e cenv |> assemble
-    intsToFile inss "fname";;
+let bcompile (e : expr) (cenv : stackvalue list) (fname : string) =
+    let inss = scomp e cenv |> assemble 
+    intsToFile inss fname;;
 
 
 (* -----------------------------------------------------------------  *)

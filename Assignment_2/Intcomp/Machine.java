@@ -1,3 +1,6 @@
+import java.io.*;
+import java.util.*;
+
 /* Java implementation of a unified-stack abstract machine 
    sestoft@itu.dk * 2001-02-05 
 
@@ -20,13 +23,32 @@ class Machine {
   final static int 
     SCST = 0, SVAR = 1, SADD = 2, SSUB = 3, SMUL = 4, SPOP = 5, SSWAP = 6;
   
-  public static void main(String[] args) {
-    final int[] rpn1 = { SCST, 17, SVAR, 0, SVAR, 1, SADD, SSWAP, SPOP };
-    System.out.println(seval(rpn1));
-    final int[] rpn2 = { SCST, 17, SCST, 22, SCST, 100, SVAR, 1, SMUL, 
-			 SSWAP, SPOP, SVAR, 1, SADD, SSWAP, SPOP };
-    System.out.println(seval(rpn2));
+  public static void main(String[] args) throws FileNotFoundException, IOException {
+    if (args.length == 0) 
+      System.out.println("Usage: java Machine <filename>");
+    else {
+      int[] p = readfile(args[0]);
+      System.out.println("Result: " + seval(p));
+    }
   }
+
+  public static int[] readfile(String filename) throws FileNotFoundException, IOException {
+      ArrayList<Integer> rawprogram = new ArrayList<Integer>();
+      Reader inp = new FileReader(filename);
+      StreamTokenizer tstream = new StreamTokenizer(inp);
+      tstream.parseNumbers();
+      tstream.nextToken();
+      while (tstream.ttype == StreamTokenizer.TT_NUMBER) {
+            rawprogram.add(Integer.valueOf((int) tstream.nval));
+            tstream.nextToken();
+      }
+      inp.close();
+      final int programsize = rawprogram.size();
+      int[] program = new int[programsize];
+      for (int i = 0; i < programsize; i++)
+            program[i] = ((Integer) (rawprogram.get(i))).intValue();
+      return program;
+}
 
   static int seval(int[] code) {
     int[] stack = new int[1000];	// evaluation and env stack
