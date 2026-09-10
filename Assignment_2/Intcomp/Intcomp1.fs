@@ -335,7 +335,6 @@ rcomp e0;;
 reval (rcomp e0) [];;
 
 
-
 (* Storing intermediate results and variable bindings in the same stack *)
 
 type sinstr =
@@ -374,8 +373,12 @@ let rec scomp (e : expr) (cenv : stackvalue list) : sinstr list =
     match e with
     | CstI i -> [SCstI i]
     | Var x  -> [SVar (getindex cenv (Bound x))]
-    | Let(x, erhs, ebody) -> 
-          scomp erhs cenv @ scomp ebody (Bound x :: cenv) @ [SSwap; SPop]
+    | Let ([], ebody) -> scomp ebody cenv
+    | Let((x, erhs)::rs, ebody) -> 
+        scomp erhs cenv 
+        @ scomp (Let(rs, ebody)) (Bound x :: cenv) 
+        @ [SSwap;SPop]
+        //scomp erhs cenv @ scomp ebody (Bound x :: cenv) @ [SSwap; SPop]
     | Prim("+", e1, e2) -> 
           scomp e1 cenv @ scomp e2 (Value :: cenv) @ [SAdd] 
     | Prim("-", e1, e2) -> 
@@ -387,7 +390,7 @@ let rec scomp (e : expr) (cenv : stackvalue list) : sinstr list =
 let s1 = scomp e1 [];;
 let s2 = scomp e2 [];;
 let s3 = scomp e3 [];;
-let s5 = scomp e5 [];;
+//let s5 = scomp e5 [];;
 
 (* 2.4: Bytecode assembler: take a list of instructions and produce a list of bytecodes. *)
 
@@ -403,16 +406,21 @@ let rec assemble (inss : sinstr list) : int list =
     | SSwap   :: insr -> 6 :: assemble insr;;
 
 
-(* 2.5: Compile an expression to a list of bytecodes. *)
-
-let bcompile (e : expr) (cenv : stackvalue list) : int list =
-    scomp e cenv |> assemble;;
-
-
 (* Output the integers in list inss to the text file called fname: *)
 
 let intsToFile (inss : int list) (fname : string) = 
     let text = String.concat " " (List.map string inss)
     System.IO.File.WriteAllText(fname, text);;
+
+(* 2.4: bcompile *)
+// let bcompile (e : expr) (cenv : stackvalue list) : int list=
+//     scomp e cenv |> assemble;;
+
+(* 2.5: Compile an expression to a list of bytecodes. *)
+
+let bcompile (e : expr) (cenv : stackvalue list) =
+    let inss = scomp e cenv |> assemble
+    intsToFile inss "fname";;
+
 
 (* -----------------------------------------------------------------  *)
