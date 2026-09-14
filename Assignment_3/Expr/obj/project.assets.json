@@ -245,11 +245,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_2/Expr/parse.fsproj",
+      "projectUniqueName": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_3/Expr/parse.fsproj",
       "projectName": "parse",
-      "projectPath": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_2/Expr/parse.fsproj",
+      "projectPath": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_3/Expr/parse.fsproj",
       "packagesPath": "/Users/maja/.nuget/packages/",
-      "outputPath": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_2/Expr/obj/",
+      "outputPath": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_3/Expr/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/maja/.nuget/NuGet/NuGet.Config"
