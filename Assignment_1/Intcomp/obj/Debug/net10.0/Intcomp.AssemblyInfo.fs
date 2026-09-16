@@ -10,7 +10,7 @@ open System.Reflection
 [<assembly: System.Reflection.AssemblyCompanyAttribute("Intcomp")>]
 [<assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")>]
 [<assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")>]
-[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b5e66137558d13544cd885eab9e3723297714b85")>]
+[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0364e37605d9e939bd5e904eedf33da90f95acde")>]
 [<assembly: System.Reflection.AssemblyProductAttribute("Intcomp")>]
 [<assembly: System.Reflection.AssemblyTitleAttribute("Intcomp")>]
 [<assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")>]
