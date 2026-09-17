@@ -52,7 +52,7 @@ let rec eval (e : expr) (env : value env) : int =
       let b = eval e1 env
       if b<>0 then eval e2 env
       else eval e3 env
-    | Letfun(f, x, fBody, letBody) -> 
+    | Letfun(f, (x::xs), fBody, letBody) -> 
       let bodyEnv = (f, Closure(f, x, fBody, env)) :: env 
       eval letBody bodyEnv
     | Call(Var f, eArg) -> 
@@ -114,3 +114,31 @@ let ex5 =
                           Call(Var "fib", Prim("-", Var "n", CstI 2))),
                      CstI 1), Call(Var "fib", CstI 25)));;
                      
+(* Exercise 4.2: writing more example programs *)
+
+(*
+  Compute the sum of the numbers from 1000 down to 1. Do this by defining a
+  function sum nthat computes the sum n + (n− 1) + ··· + 2 + 1.
+
+let ex6 =
+    Letfun("downTo", "n", 
+          If(Prim("=", Var "n", CstI 1),
+              CstI 1,
+              Prim("+", Var "n", 
+                  Call(Var "downTo", 
+                      Prim("-", Var "n", CstI 1)))),
+          Call(Var "downTo", CstI 1000));;
+
+(* Compute the number 3^8, that is, 3 raised to the power 8 *)
+let ex7 =
+    Letfun("pow3", "x",
+        If(Prim("=", Var "x", CstI 0),
+            CstI 1,
+            Prim("*", CstI 3, 
+                Call(Var "powOf3", 
+                    Prim("-", Var "x", CstI 1)
+                    ))),
+          Call(Var "powOf3", CstI 8));;
+
+(* Compute 3^0 + 3^1 + ··· + 3^10 + 3^11, using a recursive function *)
+*)
