@@ -67,7 +67,6 @@ let rec eval (e : expr) (env : value env) : int =
     | Call _ -> failwith "eval Call: not first-order function"
 
 (* Evaluate in empty environment: program must have no free variables: *)
-
 let run e = eval e [];;
 
 (* Examples in abstract syntax *)
@@ -101,7 +100,7 @@ let rundeep n = eval ex3 [("count", Int n)];;
 
 let ex4 =
     Let("y", CstI 11,
-        Letfun("f", "x", Prim("+", Var "x", Var "y"),
+        Letfun("f", ["x"], Prim("+", Var "x", Var "y"),
                Let("y", CstI 22, Call(Var "f", [CstI 3]))));;
 
 (* Example: two function definitions: a comparison and Fibonacci *)
@@ -115,29 +114,13 @@ let ex5 =
                           Call(Var "fib", [Prim("-", Var "n", CstI 2)])),
                      CstI 1), Call(Var "fib", [CstI 25])));;
                      
+// Examples for exercise 4.4:
+let ex6 = 
+    Letfun("f", ["x"; "y"],
+        Prim("+", Var "x", Var "y"),
+          Call(Var "f", [CstI 2; CstI 3]));;
 
-// Accidentally wrote half of 4.2 in here, realized my mistake :( 
-(*
-  Compute the sum of the numbers from 1000 down to 1. Do this by defining a
-  function sum nthat computes the sum n + (n− 1) + ··· + 2 + 1.
-
-let ex6 =
-    Letfun("downTo", "n", 
-          If(Prim("=", Var "n", CstI 1),
-              CstI 1,
-              Prim("+", Var "n", 
-                  Call(Var "downTo", 
-                      Prim("-", Var "n", CstI 1)))),
-          Call(Var "downTo", CstI 1000));;
-
-(* Compute the number 3^8, that is, 3 raised to the power 8 *)
-let ex7 =
-    Letfun("pow3", "x",
-        If(Prim("=", Var "x", CstI 0),
-            CstI 1,
-            Prim("*", CstI 3, 
-                Call(Var "powOf3", 
-                    Prim("-", Var "x", CstI 1)
-                    ))),
-          Call(Var "powOf3", CstI 8));;
-*)
+let ex7 = 
+    Letfun ("f", ["x"; "y"; "z"],
+        Prim("+", Var "x", Prim("+", Var "y", Var "z")), 
+            Call(Var "f", [CstI 1; CstI 2; CstI 3]));; 
