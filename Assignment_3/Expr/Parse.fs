@@ -32,5 +32,8 @@ let fromFile (filename : string) =
                failwithf "%s in file %s near line %d, column %d\n" 
                   (exn.Message) filename (pos.Line+1) pos.Column
 
-// Example
-let ex = fromString "2 + 3 * 4"
+// Examples of parsing from strings
+let ex  = fromString "2 + 3 * 4"
+let ex2 = fromString "let x = 1 + 2 in x * 4 end"
+let ex3 = fromString "2 * (3 + 4)"
+let ex4 = fromString "if 1 then 7 else 9" 
