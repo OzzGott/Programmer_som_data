@@ -6,6 +6,7 @@ module Expr
 
 open System.IO
 open Absyn
+open Parse
 
 (* From file expr/expr.sml * Simple arithmetic expressions *)
  
