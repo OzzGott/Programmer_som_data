@@ -45,4 +45,11 @@ let e7 =
             in sum 10 
         end");;
 
-printfn "%A" e7;;
+(* tests for Exercise 4.5 *)
+
+let e8 = run (fromString "let n = 2 in 1 < n && n < 3 end");; //should be true
+let e9 = run (fromString "let n = 0 in n < 5 || n < 10 end");; //should be true
+let e10 = run (fromString "let n = 5 in 20 < n || 10 < n end");; // should be false
+
+let e11 = run (fromString "true && false");; // should be false
+let e12 = run (fromString "true || false");; // should be true

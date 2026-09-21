@@ -3,12 +3,14 @@
 module ParseAndRunHigher
 
 open HigherFun;;
+open Parse;;
 
 let fromString = Parse.fromString;;
 
 let eval = HigherFun.eval;;
 
 let run e = eval e [];;
+
 
 (* Examples of higher-order programs, in concrete syntax *)
 
