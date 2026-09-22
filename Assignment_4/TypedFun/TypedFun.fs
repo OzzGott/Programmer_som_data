@@ -50,12 +50,16 @@ type tyexpr =
   | Letfun of string * string * typ * tyexpr * typ * tyexpr
           (* (f,       x,       xTyp, fBody,  rTyp, letBody *)
   | Call of tyexpr * tyexpr
+  | Nil of typ
+  | Cons of tyexpr * tyexpr
+  | Match of tyexpr * tyexpr * string * string * tyexpr
 
 (* A runtime value is an integer or a function closure *)
 
 type value = 
   | Int of int
   | Closure of string * string * tyexpr * value env       (* (f, x, fBody, fDeclEnv) *)
+  | List of value list
 
 let rec eval (e : tyexpr) (env : value env) : int =
     match e with
@@ -138,6 +142,22 @@ let rec typ (e : tyexpr) (env : typ env) : typ =
         else failwith "Call: wrong argument type"
       | _ -> failwith "Call: unknown function"
     | Call(_, eArg) -> failwith "Call: illegal function in call"
+    | Nil t -> TypL t
+    | Cons(e1, e2) ->
+        let t1 = typ e1 env
+        match typ e2 env with
+        | TypL t2 when t1 = t2 -> TypL t1
+        | TypL _ -> failwith "Cons: head and tail types differ"
+        | _ -> failwith "Cons: tail is not a list"
+    | Match(e, eNil, x, xs, eCons) ->
+      match typ e env with
+      | TypL t1 ->
+          let tNil = typ eNil env
+          let eConsEnv = (x, t1) :: (xs, TypL t1) :: env
+          let tCons = typ eCons eConsEnv
+          if tNil = tCons then tNil
+          else failwith "Match: branch types differ"
+      | _ -> failwith "Match: not a list"
 
 let typeCheck e = typ e [];;
 
