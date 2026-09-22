@@ -25,9 +25,9 @@ the closure representing:
 
 #### Exercise 6.2
 
-Added `Fun of string * expr` to the disjoint union in Fun1/Absyn.fs
-Added Clos to the value type 
-Adapted the evaluater in Fun1/HigherFun.fs to return Clos for anonymous functions.
+Expanded expr type to include `Fun(...)` in Fun1/Absyn.fs.
+Added Clos to the value type, and adapted the `eval` function in Fun1/HigherFun.fs to return `Clos` for anonymous functions.
 
 #### Exercise 6.3
+Expanded `FunLex.fsl` and `FunPar.fsy` by adding tokens `FUN` and `ARROW` to enable parsing anonymous functions.
 Added examples of parsing anonymous functions from strings at the bottom of Fun1/ParseAndRunHigher.fs
