@@ -87,6 +87,6 @@ let ex9 =
        in let twototen = (rep 10) mul3 
        in twototen 7 end end end";;
 
-(* 6.2 tests *)
+(* 6.3 tests *)
 let ex10 = Parse.fromString @"let add x = fun y -> x+y in add 2 5 end";;
 let ex11 = Parse.fromString @"let add = fun x -> fun y -> x+y in add 2 5 end";;

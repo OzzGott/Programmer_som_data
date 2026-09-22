@@ -147,7 +147,7 @@ let rec typ (e : tyexpr) (env : typ env) : typ =
         let t1 = typ e1 env
         match typ e2 env with
         | TypL t2 when t1 = t2 -> TypL t1
-        | TypL _ -> failwith "Cons: head and tail types differ"
+        | TypL _ -> failwith "Cons: head and tail types differ"
         | _ -> failwith "Cons: tail is not a list"
     | Match(e, eNil, x, xs, eCons) ->
       match typ e env with
