@@ -32,3 +32,8 @@ We also ran ex01.c and to no surprise it printed the numbers from n to 1, given 
 Running ex11.c with parameter 8, gave us all solutions to the 'Queens problem' for an 8x8 board. The 92 solutions was posted line-by-line with each having 8 numbers that symbolized in what column each queen would be in by row.
 
 We did also run ex05.c which was not specified in the exercise, but was mentioned in the README.md file, and that returned the square number the input paramter.
+
+
+### Exercise 7.2
+
+### Exercise 7.3

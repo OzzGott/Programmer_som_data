@@ -48,3 +48,4 @@ generalized and `g false` does not constrain `x`. `f : 'a -> bool`.
 
 The last two rely on non-termination: `f x = f x` never constrains its
 result type, so it stays a free type variable.
+

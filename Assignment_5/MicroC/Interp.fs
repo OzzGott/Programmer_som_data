@@ -133,6 +133,14 @@ let rec exec stmt (locEnv : locEnv) (gloEnv : gloEnv) (store : store) : store =
               if v<>0 then loop (exec body locEnv gloEnv store2)
                       else store2
       loop store
+    | For (x, estart, estop, body) ->
+        let start = exec estart store
+        let stop = exec estop store
+        let rec loop i sto =
+            if i > stop then sto
+                else loop (i+1)
+                    (exec stmt (setSto sto (x,i)))
+        loop start store
     | Expr e -> 
       let (_, store1) = eval e locEnv gloEnv store 
       store1 
