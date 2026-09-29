@@ -37,3 +37,6 @@ We did also run ex05.c which was not specified in the exercise, but was mentione
 ### Exercise 7.2
 
 ### Exercise 7.3
+We added the keyword `for` to `CLex.fsl` and declared a `FOR` token in `CPar.fsy`, together with productions that translate `for (e1; e2; e3) stmt` directly into the block `{ e1; while (e2) { stmt e3; } }`.
+The productions are added to both StmtM and StmtU, mirroring while. Since the parser builds ordinary `Block`, `While` and `Expr` nodes, Absyn.fs and the interpreter are unchanged.
+
