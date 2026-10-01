@@ -245,9 +245,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_5/MicroC/microcc.fsproj",
-      "projectName": "microcc",
-      "projectPath": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_5/MicroC/microcc.fsproj",
+      "projectUniqueName": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_5/MicroC/parse.fsproj",
+      "projectName": "parse",
+      "projectPath": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_5/MicroC/parse.fsproj",
       "packagesPath": "/Users/maja/.nuget/packages/",
       "outputPath": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_5/MicroC/obj/",
       "projectStyle": "PackageReference",

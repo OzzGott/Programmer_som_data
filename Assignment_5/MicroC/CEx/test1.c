@@ -2,7 +2,6 @@ void main(int i){
     int sum;    
     int arr[4];
     int *p;
-    sum = 0;
     p = &sum;
     
     arr[0] = 7;
