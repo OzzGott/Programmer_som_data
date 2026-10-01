@@ -50,7 +50,6 @@ Where this changes from `test1.c` is in the `squares` function.
 `squares` fills `arr` with the squares of the numbers of the index of `arr` so that `arr[n]` = n^2
 
 
-
 iii) The solution to this can be found in `CEx/test3.c`.
 The `main` function is of least importance and only serves to make the initial integer array as specified in the exercise, make the `freq` integer array and call the `histogram` function.
 The interesting bit is the `histogram` function.
