@@ -35,11 +35,30 @@ We did also run ex05.c which was not specified in the exercise, but was mentione
 
 
 ### Exercise 7.2
-i)
+We decided to construct the for-loop mentioned in exercise 7.3 first.
+The whole idea is to write then rewrite, and we felt it made more sense to write them using the for-loop already.
+And since a for-loop can easily be constructed from a while-loop using an iterator, we decided to skip the redundancy.
 
-ii)
+i) The solution to this can be found in `CEx/test1.c`.
+In `main` we make and fill the integer array with the data from the exercise and we declare our `sum` and our pointer `*p` that points to the value of `sum`.
+In `arrsum` we go over `arr` with a for-loop and with each iteration we add the value of `arr` to our sum.
 
-iii)
+
+ii) The solution to this can be found in `CEx/test2.c`.
+Here we use `arrsum` in the same way as before, and `main` is very similar as well.
+Where this changes from `test1.c` is in the `squares` function.
+`squares` fills `arr` with the squares of the numbers of the index of `arr` so that `arr[n]` = n^2
+
+
+
+iii) The solution to this can be found in `CEx/test3.c`.
+The `main` function is of least importance and only serves to make the initial integer array as specified in the exercise, make the `freq` integer array and call the `histogram` function.
+The interesting bit is the `histogram` function.
+To solve the problem we chose to iterate over the array for each value we are looking for as denoted by `max`.
+This might not be the most efficient way of doing it `O(n^2)`, but it works well enough.
+
+To go over this we first make a for-loop of length `max+1` and for each iteration of that we go through `arr` with another for-loop of length `n` and count the instances of `i` in `arr` and add that to `freq[n]`.
+
 
 ### Exercise 7.3
 We added the keyword `for` to `CLex.fsl` and declared a `FOR` token in `CPar.fsy`, together with productions that translate `for (e1; e2; e3) stmt` directly into the block `{ e1; while (e2) { stmt e3; } }`.

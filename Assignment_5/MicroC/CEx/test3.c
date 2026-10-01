@@ -5,8 +5,8 @@ void histogram(int n, int ns[], int max, int freq[]){
         int j;
         for (j = 0; j < n; j = j + 1){
             if (ns[j] == i) {
-                freq[i] = freq[i] + 1;    
-            }    
+                freq[i] = freq[i] + 1;
+            }
         }
     }
 }
