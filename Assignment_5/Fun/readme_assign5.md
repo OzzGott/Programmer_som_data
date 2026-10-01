@@ -1,3 +1,16 @@
+### Exercise 6.4
+
+i) See tree1.png for the type rule tree of `f x = 1 in f f end`
+
+We can conclude that f is polymorphic in the let body, because f is instantiated with different type schemes. Therefore, f can be instantiated with different types when it is used as a function and as an argument to itself.
+
+ii) See tree2.png for the type rule tree of `let f x = if x<10 then 42 else f(x+1)
+in f 20 end`
+
+We can conclude that f is not polymorphic (i.e. monomorphic) in the let-body. 
+The condition x < 10 requires x to have type int, and the recursive call f(x+1) must therefore also be require f to take an int as it's argument.
+Since both branches return an int, f has type int -> int. There are no type variables left to generalize, so f cannot be instantiated with different types in the let-body.
+
 ### Exercise 6.5
 
 All programs were run with `inferType (fromString "...")` as described in
