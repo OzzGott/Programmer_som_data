@@ -206,12 +206,12 @@ and Token  lexbuf =
           )
   | 18 -> ( 
 # 58 "FunLex.fsl"
-                          AND 
+                                     AND 
 # 210 "FunLex.fs"
           )
   | 19 -> ( 
 # 59 "FunLex.fsl"
-                          OR 
+                                     OR 
 # 215 "FunLex.fs"
           )
   | 20 -> ( 
