@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
@@ -16,6 +16,7 @@
     <Compile Include="Absyn.fs" />
     <Compile Include="CPar.fs" />
     <Compile Include="CLex.fs" />
+    <Compile Include="Interp.fs" />
     <Compile Include="Parse.fs" />
   </ItemGroup>
 

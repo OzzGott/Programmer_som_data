@@ -25,6 +25,7 @@
    typecheck, so be careful.
  *)
 
+
 module Interp
 
 open Absyn
@@ -195,6 +196,18 @@ and eval e locEnv gloEnv store : int * store =
       let (i1, store1) as res = eval e1 locEnv gloEnv store
       if i1<>0 then res else eval e2 locEnv gloEnv store1
     | Call(f, es) -> callfun f es locEnv gloEnv store 
+    |PreInc(a) -> 
+      let (loc, store1) = access a locEnv gloEnv store
+      let value = getSto store1 loc
+      let value' = value+1
+      (value', setSto store1 loc value')
+    |PreDec(a) ->
+      let (loc, store1) = access a locEnv gloEnv store
+      let value = getSto store1 loc
+      let value' = value-1
+      (value', setSto store1 loc value')
+
+
 
 and access acc locEnv gloEnv store : int * store = 
     match acc with 
