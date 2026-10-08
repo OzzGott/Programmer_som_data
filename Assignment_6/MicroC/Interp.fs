@@ -195,8 +195,9 @@ and eval e locEnv gloEnv store : int * store =
     | Orelse(e1, e2) -> 
       let (i1, store1) as res = eval e1 locEnv gloEnv store
       if i1<>0 then res else eval e2 locEnv gloEnv store1
-    | Call(f, es) -> callfun f es locEnv gloEnv store 
-    |PreInc(a) -> 
+    | Call(f, es) -> callfun f es locEnv gloEnv store
+    // Exercise 7.4
+    |PreInc(a) ->                                       
       let (loc, store1) = access a locEnv gloEnv store
       let value = getSto store1 loc
       let value' = value+1
