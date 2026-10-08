@@ -4,17 +4,17 @@
     <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">True</RestoreSuccess>
     <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
     <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
-    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">/Users/maja/.nuget/packages/</NuGetPackageRoot>
-    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">/Users/maja/.nuget/packages/</NuGetPackageFolders>
+    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">/Users/Osvald333/.nuget/packages/</NuGetPackageRoot>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">/Users/Osvald333/.nuget/packages/</NuGetPackageFolders>
     <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
     <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">7.0.0</NuGetToolVersion>
   </PropertyGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <SourceRoot Include="/Users/maja/.nuget/packages/" />
+    <SourceRoot Include="/Users/Osvald333/.nuget/packages/" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgFSharp_Core Condition=" '$(PkgFSharp_Core)' == '' ">/Users/maja/.nuget/packages/fsharp.core/10.1.301</PkgFSharp_Core>
-    <PkgFsLexYacc_Runtime Condition=" '$(PkgFsLexYacc_Runtime)' == '' ">/Users/maja/.nuget/packages/fslexyacc.runtime/11.3.0</PkgFsLexYacc_Runtime>
-    <PkgFsLexYacc Condition=" '$(PkgFsLexYacc)' == '' ">/Users/maja/.nuget/packages/fslexyacc/11.3.0</PkgFsLexYacc>
+    <PkgFSharp_Core Condition=" '$(PkgFSharp_Core)' == '' ">/Users/Osvald333/.nuget/packages/fsharp.core/10.1.400</PkgFSharp_Core>
+    <PkgFsLexYacc_Runtime Condition=" '$(PkgFsLexYacc_Runtime)' == '' ">/Users/Osvald333/.nuget/packages/fslexyacc.runtime/11.3.0</PkgFsLexYacc_Runtime>
+    <PkgFsLexYacc Condition=" '$(PkgFsLexYacc)' == '' ">/Users/Osvald333/.nuget/packages/fslexyacc/11.3.0</PkgFsLexYacc>
   </PropertyGroup>
 </Project>

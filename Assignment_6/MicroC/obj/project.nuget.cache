@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "t3MO8/TA5js=",
+  "dgSpecHash": "ocfa+qgvzr0=",
   "success": true,
-  "projectFilePath": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_6/MicroC/parse.fsproj",
+  "projectFilePath": "/Users/Osvald333/Documents/Documents/Dokumenter til Skole_Itu/Year3/Fall26/programmer_som_data/Programmer_som_data/Assignment_6/MicroC/parse.fsproj",
   "expectedPackageFiles": [
-    "/Users/maja/.nuget/packages/fsharp.core/10.1.301/fsharp.core.10.1.301.nupkg.sha512",
-    "/Users/maja/.nuget/packages/fslexyacc/11.3.0/fslexyacc.11.3.0.nupkg.sha512",
-    "/Users/maja/.nuget/packages/fslexyacc.runtime/11.3.0/fslexyacc.runtime.11.3.0.nupkg.sha512"
+    "/Users/Osvald333/.nuget/packages/fsharp.core/10.1.400/fsharp.core.10.1.400.nupkg.sha512",
+    "/Users/Osvald333/.nuget/packages/fslexyacc/11.3.0/fslexyacc.11.3.0.nupkg.sha512",
+    "/Users/Osvald333/.nuget/packages/fslexyacc.runtime/11.3.0/fslexyacc.runtime.11.3.0.nupkg.sha512"
   ],
   "logs": []
 }
