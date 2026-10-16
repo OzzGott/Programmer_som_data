@@ -29,7 +29,7 @@ Used 0.003 seconds
 
 We ran Machinetrace on example 3, and analyzed the output. In it, each line has a stack frame and some instruction.
 The numbers before the colon, like {22: ADD}, are the position of that instruction in the bytecode. When looking at the value in fsi after 
-
+```
 Label   instr                      description 
     
         LDARGS 1                   load command line arguments "n"
@@ -59,9 +59,8 @@ L3:
         GETBP; CSTI 0; ADD; LDI;   load n
         LT; IFNZERO "L2";          jump to loop body if i < n
         INCSP -1;
-        RET 0;                       otherwise return
-
-    
+        RET 0;                     otherwise return
+``` 
 
 ### Exercise 8.3 
 
