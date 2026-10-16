@@ -9,7 +9,7 @@ By first calling `access`, we get the location and store. We can then get the va
 
 - Added tokens for `++` and `--` in the .fsl file.
 
-- Added `INC` and `DEC` as tokens in the .fsy file
+- Added `PREINC` and `PREDEC` as tokens in the .fsy file. These were made non-associative.
 
 ### Exercise 8.1
 
@@ -28,31 +28,40 @@ Running `java Machine CEx/ex05.out 8` produces the output:
 Used 0.003 seconds
 
 We ran Machinetrace on example 3, and analyzed the output. In it, each line has a stack frame and some instruction.
-The numbers before the colon, like {22: ADD}, are the position of that instruction in the bytecode.
+The numbers before the colon, like {22: ADD}, are the position of that instruction in the bytecode. When looking at the value in fsi after 
 
-| addr | Bytecode + args | instr | micro-c |
-| ---- | ------- | ----- | ------- |
-| 0    |  100 1  |LDARGS | (loads n from command line)        |
-| 2    | 80 1 6  |CALL 1 6| main(n)     |
-| 5    | 101     | STOP  |         |
-| 6    | 62 1    | INCSP 1 |         |
-| 8    | 60      | GETBP   |         |
-| 9    | 0 1     | CSTI 1  |   |
-| 11   | 10      | ADD  |    |
-| 12   | 0 0     | CST 0  |    |
-| 14   | 41      | STI  |    |
-| 15   | 62 -1   | INCSP -1  |    |
-| 17   | 70 44   | GOTO 44 |    |
-| 44   | 60      | GETBP  |    |
-| 45   | 0 0     | CSTI 0 |    |
-| 47   | 10      | ADD  |    |
-| 48   | 40      | LDI  |    |
-| 49   | 60      | GETBP  |    |
-| 50   | 0 0      | CSTI 0  |    |
-| 52   | 10      | ADD  |    |
-| 11   | 10      | ADD  |    |
+Label   instr                      description 
+    
+        LDARGS 1                   load command line arguments "n"
+        Call (1, "L1")             main(n)
+        STOP                       stop when main returns
 
+L1:
+        INCSP 1;                   int i
+        GETBP; CSTI 1; ADD;        i = 0
+        CSTI 0;
+        STI;
+        INCSP -1;
+        GOTO "L3";                 jump to while condition 
 
+L2:
+        GETBP; CSTI 1; ADD;       
+        LDI; PRINTI;               print i
+        INCSP -1;
+        GETBP; CSTI 1; ADD;    
+        GETBP; CSTI 1; ADD; LDI;   i = i+1 
+        CSTI 1; ADD;
+        STI; INCSP -1;
+        INCSP 0;                   end of while body
+
+L3:
+        GETBP; CSTI 1; ADD; LDI;   load i
+        GETBP; CSTI 0; ADD; LDI;   load n
+        LT; IFNZERO "L2";          jump to loop body if i < n
+        INCSP -1;
+        RET 0;                       otherwise return
+
+    
 
 ### Exercise 8.3 
 
