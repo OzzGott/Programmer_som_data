@@ -26,8 +26,8 @@ type token =
   | TIMES
   | DIV
   | MOD
-  | INC
-  | DEC
+  | PREDEC
+  | PREINC
   | CHAR
   | ELSE
   | IF
@@ -68,8 +68,8 @@ type tokenId =
     | TOKEN_TIMES
     | TOKEN_DIV
     | TOKEN_MOD
-    | TOKEN_INC
-    | TOKEN_DEC
+    | TOKEN_PREDEC
+    | TOKEN_PREINC
     | TOKEN_CHAR
     | TOKEN_ELSE
     | TOKEN_IF
