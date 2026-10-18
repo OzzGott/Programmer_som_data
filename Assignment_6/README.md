@@ -108,4 +108,23 @@ L2:
 
 ### Exercise 8.3 
 
+We extended `Comp.fs`with two cases, `PreInc acc` and `PreDec acc`. Both cases compile the access once and reuse the address:
+
+```fsharp
+| PreInc acc -> cAccess acc varEnv funEnv @ [DUP; LDI; CSTI 1; ADD; STI]
+| PreDec acc -> cAccess acc varEnv funEnv @ [DUP; LDI; CSTI 1; SUB; STI]
+```
+
+`cAccess` leaves the address of the variable on the stack, DUP copies it. LDI consumes one copy and pushes the current value, CSTI 1; ADD/SUB computes the new value, and STI writes it through the copy of the address and leaves the new value on the stack.
+
 ### Exercise 8.4
+
+ex08.c is so slow, because it has 17 instructions per iteration.
+20,000,000 x 17 is about 340 million instructions, which is a lot.
+The 17 iterations come from getting the value at the address of i, computing i - 1, writing this to i and discarding the leftover, then looping back. 
+
+As for example 13, the program starts by jumping to L3, the label of the while condition. There y < n is evaluated (using LT), and IFNZRO L2 jumps into the loop body if it is true.
+
+L2 is the loop body. It first performs y = y + 1, then the if statement with the condition `y % 4 == 0 && (y % 100 != 0 || y % 400 == 0)`. In the bytecode, each comparison loads the value of y, computes MOD, and compares with EQ. The != in the second comparison is compiled as EQ; NOT, since there is no NE instruction.
+
+&& and || have no instructions of their own. Instead, they are compiled to conditional jumps. For &&, if the left side is 0 we jump (IFZERO) to a label that pushes CSTI 0. otherwise we evaluate the right side and jump past that label. || works the same way with IFNZRO and CSTI 1.
