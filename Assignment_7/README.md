@@ -6,8 +6,20 @@
 
 ### Exercise 8.6 
 
-- Added the case `Switch of expr * (int * stmt) list` to the statement type in `Absyn.fs`. The cases in the list consist of integers and b are represented 
-- 
+- Added the case `Switch of expr * (int * stmt) list` to the statement type in `Absyn.fs`. The `expr` is the value being switched on. The list holds the cases, where each case is a pair of an integer constant and the statement for that case.
+- Added the keywords `switch` and `case` to `CLex.fsl`.
+- Added the tokens `SWITCH` and `CASE` to `CPar.fsy` with the following cases:
+    - `SWITCH LPAR Expr RPAR LBRACE Cases RBRACE` as a statement (in `StmtM`)
+    - `Case: CASE Const COLON Block`, which builds one `(int * stmt)` pair
+    - `Cases`, which builds the list of cases by consing one `Case` onto the rest
+We found it easier to work with the cases this way. A case is defined as `CASE Const COLON Block` to ensure that it is followed by a block (and not just a single statement).
+
+`Comp.fs`: 
+- The switch value is evaluated once and left on the stack. 
+- For each case we `DUP` it, push the case constant, and compare.
+- `IFZERO` jumps to the label of the next case.
+
+
 
 ### Exercise 9.1
 
