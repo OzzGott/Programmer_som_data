@@ -10,4 +10,10 @@
 - 
 
 ### Exercise 9.1
+
+- Dissasembled the selection sort algorithm `Selsort` both for C# and Java, using `ilspycmd` and `javap` respectively.
+- From this `Selsort.il` and `Selsort.jvmbytecode` was generated, and we isolated the method `SelectionSort` in both.
+- We then commented what happened in both onto the code. The actual going on of the code was of course the same, but the ways the two types of bytecode looks and were structured were wildly different.
+- For example in the jvm bytecode, the local value `3` is both `j` and `tmp` since the jvm notices that those two aren't used at the same time.
+
 ### Exercise 9.3 
