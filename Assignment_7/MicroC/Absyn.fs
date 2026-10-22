@@ -31,11 +31,12 @@ and access =
   | AccIndex of access * expr        (* Array indexing         a[e] *)
                                                                    
 and stmt =                                                         
-  | If of expr * stmt * stmt         (* Conditional                 *)
-  | While of expr * stmt             (* While loop                  *)
-  | Expr of expr                     (* Expression statement   e;   *)
-  | Return of expr option            (* Return from method          *)
-  | Block of stmtordec list          (* Block: grouping and scope   *)
+  | If of expr * stmt * stmt           (* Conditional                 *)
+  | While of expr * stmt               (* While loop                  *)
+  | Expr of expr                       (* Expression statement   e;   *)
+  | Return of expr option              (* Return from method          *)
+  | Block of stmtordec list            (* Block: grouping and scope   *)
+  | Switch of expr * (int * stmt) list (* 8.6, switch case            *)
                                                                    
 and stmtordec =                                                    
   | Dec of typ * string              (* Local variable declaration  *)
