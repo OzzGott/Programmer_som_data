@@ -155,7 +155,10 @@ let rec cStmt stmt (varEnv : varEnv) (funEnv : funEnv) : instr list =
           | []            -> []
           | (i, body)::cs -> 
           let body' = cStmt body varEnv funEnv
-          [DUP; CSTI i; EQ; IFZERO "labnext"] @ body' @ [GOTO "labend"] @ loop cs
+          [DUP; CSTI i; EQ; IFZERO "labnext"] 
+          @ body' 
+          @ [GOTO "labend"] 
+          @ loop cs
       e' @ loop cs @ [Label labend; INCSP -1]
     | Return None -> 
       [RET (snd varEnv - 1)]
