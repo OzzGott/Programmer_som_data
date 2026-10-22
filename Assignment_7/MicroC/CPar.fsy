@@ -101,7 +101,7 @@ StmtM:  /* No unbalanced if-else */
   | Block                                     { $1                   }
   | IF LPAR Expr RPAR StmtM ELSE StmtM        { If($3, $5, $7)       }
   | WHILE LPAR Expr RPAR StmtM                { While($3, $5)        }
-  | SWITCH LPAR Expr RPAR LBRACE Cases RBRACE { Switch($3, $6)       }    //Exericse 8.6
+  | SWITCH LPAR Expr RPAR LBRACE Cases RBRACE { Switch($3, $6)       }    //Exericse 8.6
 ;
 
 StmtU:
@@ -135,7 +135,7 @@ ExprNotAccess:
   | Expr LE    Expr                     { Prim2("<=", $1, $3)  }
   | Expr SEQAND Expr                    { Andalso($1, $3)      }
   | Expr SEQOR  Expr                    { Orelse($1, $3)       }
-  | Expr QMARK Expr COLON Expr          { Ternary($1, $3, $5)  }      //8.5
+  | Expr QMARK Expr COLON Expr          { Ternary($1, $3, $5)  }
 ;
 
 AtExprNotAccess:
@@ -167,8 +167,8 @@ Case:
 ;
 
 Cases:
-    /* empty */                         { []       }
-    | Case Cases                        { $1 :: $2 }
+    /* empty */                       { []       }
+  | Case Cases                        { $1 :: $2 }
 ;
 
 Const:

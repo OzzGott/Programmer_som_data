@@ -28,8 +28,8 @@ let keyword s =
     | "true"    -> CSTBOOL 1
     | "void"    -> VOID 
     | "while"   -> WHILE 
-    | "case"    -> CASE   
-    | "switch"  -> SWITCH     
+    | "case"    -> CASE
+    | "switch"  -> SWITCH
     | _         -> NAME s
  
 let cEscape s = 
@@ -76,8 +76,8 @@ rule Token = parse
   | ']'             { RBRACK }
   | ';'             { SEMI }
   | ','             { COMMA }
-  | '?'             { QMARK }
   | ':'             { COLON }
+  | '?'             { QMARK }
   | "//"            { EndLineComment lexbuf; Token lexbuf }
   | "/*"            { Comment lexbuf; Token lexbuf }
   | '"'             { CSTSTRING (String [] lexbuf) }
