@@ -231,7 +231,7 @@ and cExpr (e : expr) (varEnv : varEnv) (funEnv : funEnv) : instr list =
       cExpr e1 varEnv funEnv @ [IFZERO labelse] 
       @ cExpr e2 varEnv funEnv @ [GOTO labend]
       @ [Label labelse] @ cExpr e3 varEnv funEnv
-      @ [GOTO labend]
+      @ [Label labend]
 
 
 (* Generate code to access variable, dereference pointer or index array.
