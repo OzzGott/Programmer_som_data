@@ -17,7 +17,7 @@ We found it easier to work with the cases this way. A case is defined as `CASE C
 `Comp.fs`: 
 - The switch value is evaluated once and left on the stack. 
 - For each case we `DUP` it, push the case constant, and compare.
-- `IFZERO` jumps to the label of the next case.
+- `IFZERO` jumps to the label of the next case if they differ. On a match we pop the value, run the body and `GOTO` the end label.
 
 
 
