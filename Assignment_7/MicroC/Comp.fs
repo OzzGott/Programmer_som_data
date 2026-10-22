@@ -143,21 +143,18 @@ let rec cStmt stmt (varEnv : varEnv) (funEnv : funEnv) : instr list =
             (fdepthr, code1 @ coder)
       let (fdepthend, code) = loop stmts varEnv
       code @ [INCSP(snd varEnv - fdepthend)]  (* Remove variables, declared in the block, from the stack *)
-    | Switch (e, cs: (int * stmt) list) ->
-      let labelse = newLabel()
-      let labend  = newLabel()
-      let e' = cExpr e varEnv funEnv
+    | Switch (e, cs) ->
+      let labend = newLabel()
       let rec loop cases =
-        let labnext = newLabel()
         match cases with
-          | []            -> []
-          | (i, body)::cs -> 
-          let body' = cStmt body varEnv funEnv
-          [DUP; CSTI i; EQ; IFZERO "labnext"] 
-          @ body' 
-          @ [GOTO "labend"] 
-          @ loop cs
-      e' @ loop cs @ [Label labend; INCSP -1]
+        | [] -> [INCSP -1]
+        | (i, body) :: rest ->
+          let labnext = newLabel()
+          [DUP; CSTI i; EQ; IFZERO labnext; INCSP -1]
+          @ cStmt body varEnv funEnv
+          @ [GOTO labend; Label labnext]
+          @ loop rest
+      cExpr e varEnv funEnv @ loop cs @ [Label labend]
     | Return None -> 
       [RET (snd varEnv - 1)]
     | Return (Some e) -> 
