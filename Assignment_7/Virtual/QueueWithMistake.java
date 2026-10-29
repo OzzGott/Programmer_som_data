@@ -88,7 +88,7 @@ class SentinelLockQueue implements Queue {
 
   private Node head, tail;
 
-  public SentinelLockQueue() {
+  public SentinelLockQueue() {        // 9.3
     head = new Node(-444, null);
     tail = head;
   }
