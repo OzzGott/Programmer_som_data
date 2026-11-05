@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "g3cnDlP8OdA=",
+  "success": true,
+  "projectFilePath": "/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_9/Cont/project.fsproj",
+  "expectedPackageFiles": [
+    "/Users/maja/.nuget/packages/fsharp.core/10.1.301/fsharp.core.10.1.301.nupkg.sha512"
+  ],
+  "logs": []
+}

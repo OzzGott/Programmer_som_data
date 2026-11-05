@@ -1,0 +1,15 @@
+/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_9/Cont/Factorial/bin/Debug/net10.0/Factorial
+/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_9/Cont/Factorial/bin/Debug/net10.0/Factorial.deps.json
+/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_9/Cont/Factorial/bin/Debug/net10.0/Factorial.runtimeconfig.json
+/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_9/Cont/Factorial/bin/Debug/net10.0/Factorial.dll
+/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_9/Cont/Factorial/bin/Debug/net10.0/Factorial.pdb
+/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_9/Cont/Factorial/obj/Debug/net10.0/Factorial.GeneratedMSBuildEditorConfig.editorconfig
+/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_9/Cont/Factorial/obj/Debug/net10.0/Factorial.AssemblyInfoInputs.cache
+/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_9/Cont/Factorial/obj/Debug/net10.0/Factorial.AssemblyInfo.cs
+/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_9/Cont/Factorial/obj/Debug/net10.0/Factorial.csproj.CoreCompileInputs.cache
+/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_9/Cont/Factorial/obj/Debug/net10.0/Factorial.sourcelink.json
+/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_9/Cont/Factorial/obj/Debug/net10.0/Factorial.dll
+/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_9/Cont/Factorial/obj/Debug/net10.0/refint/Factorial.dll
+/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_9/Cont/Factorial/obj/Debug/net10.0/Factorial.pdb
+/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_9/Cont/Factorial/obj/Debug/net10.0/Factorial.genruntimeconfig.cache
+/Users/maja/Documents/ITU/5_sem/programmer_som_data/Programmer_som_data/Assignment_9/Cont/Factorial/obj/Debug/net10.0/ref/Factorial.dll
