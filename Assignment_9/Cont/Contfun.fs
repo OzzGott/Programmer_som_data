@@ -267,11 +267,12 @@ let rec lenc xs cont =
     | x::xr -> lenc xr (fun r -> cont (r + 1))
 
 let id = fun v -> v
-lenc [2; 5; 7] id
-lenc [2; 5; 7] (printf "The answer is ’%d’\n")
+let ys = [2; 5; 7]
+let ex14 = lenc ys id
+let ex15 = lenc ys (printf "The answer is ’%d’\n")
 
 // (ii)
-lenc [3; 2; 5; 7] (fun v -> 2*v)
+let ex16 = lenc ys (fun v -> 2*v)
 
 // (iii)
 // leni : int list -> int -> int
@@ -280,22 +281,57 @@ let rec leni xs acc =
     | []    -> acc
     | x::xr -> leni xr (acc+1)
 
-leni [2; 5; 7] 0
+let ex17 = leni ys 0
 
 // 11.2
 // (i)
 // revc : 'a list -> ('a list -> 'a list) -> 'a list
-let rec revc xs (cont : 'a list -> 'a list)  =
+let rec revc (xs :'a list) (cont : 'a list -> 'a list)  =
   match xs with
   | []    -> cont []
-  | x::xr -> revc xr (fun r -> cont (r @ x) )
+  | x::xr -> revc xr (fun r -> cont (r @ [x]) )
  
-revc [2; 3; 4] id
-
-// 2::xr -> revc xr, fun 
-    
-
-// continuation should at the end put all the 
-// (ii)
+let ex18= revc ys id
+let ex19 = revc ys (fun v -> v @ v)
 
 // (iii)
+// revi : ’a list -> ’a list -> ’a list,
+// whose second parameter is an accumulating parameter, and which should be called as revi xs [].
+let rec revi xs acc=
+  match xs with
+  | []    -> acc
+  | x::xr -> revi xr ([x] @ acc)
+let ex20 = revi ys []
+
+// 2::[5;7] -> 2 @ []
+// 5::[7]   -> 5 @ [2]
+// 7::[]    -> 7 @ [5; 2]
+// []       -> [7; 5; 2]
+
+// 11.3:
+// Write a continuation-passing version prodc : int list -> (int -> int) -> int
+let rec prodc xs cont =
+  match xs with
+  | []    -> cont 1
+  | x::xr -> prodc xr (fun r -> cont(r * x))
+
+let ex21 = prodc ys id // val it: int = 70
+
+// 11.4
+let rec prodc_but_better xs cont =
+  match xs with
+  | []                -> cont 1
+  | x::_ when x = 0   -> cont 0
+  | x::xr             -> prodc_but_better xr (fun r -> cont(r * x))
+  
+let another_list = [1;2;0;4]
+let ex22 = prodc_but_better another_list id
+
+let rec prodi xs acc =
+  match xs with
+  | []              -> acc
+  | x::_ when x = 0 -> 0
+  | x::xr           -> prodi xr (acc*x)
+
+let ex23 = prodi another_list 1
+

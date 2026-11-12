@@ -31,6 +31,7 @@ type expr =
   | Write of expr
   | If of expr * expr * expr
   | Prim of string * expr * expr 
+  | Prim1 of string * expr         // 11.8 (iii)
   | And of expr * expr
   | Or  of expr * expr
   | Seq of expr * expr
@@ -88,6 +89,20 @@ let rec eval (e : expr) (cont : cont) (econt : econt) =
               | _ -> Str "unknown prim2")
               econt1)
           econt
+    | Prim1(ope, e1) ->
+      eval e1 (fun v -> fun econt1 ->
+        match (ope, v) with
+        | ("sqr", Int i)  -> cont (Int(i * i)) econt1
+        | ("even", Int i) -> if i % 2 = 0 then 
+                                 cont (Int(i)) econt1
+                             else
+                                 econt1 ()
+        | ("multiples", Int i) ->
+            let rec loop n =
+              cont (Int n) (fun () -> loop (n + i))
+            loop i
+        | _ -> econt1 ()
+        ) econt
     | And(e1, e2) -> 
       eval e1 (fun _ -> fun econt1 -> eval e2 cont econt1) econt
     | Or(e1, e2) -> 
@@ -137,3 +152,30 @@ let ex8 = Write(Prim("<", CstI 4, FromTo(1, 10)));
 
 // every(write(4 < (1 to 10)))
 let ex9 = Every(Write(Prim("<", CstI 4, FromTo(1, 10))));
+
+(* 11.8 *)
+// (i)
+// every(write(1 + (2 * (1 to 4))))
+let ex10 = Every(Write(Prim("+", CstI 1, Prim("*", CstI 2, FromTo(1, 4)))));
+
+// every(write((10 * (2 to 4)) + (1 to 2))) = 21 22 31 32 41 42
+let ex11 = Every (Write (Prim("+", Prim("*", CstI 10, FromTo(2, 4)), FromTo(1,2))));
+
+// (ii): write an expression that that prints the least multiple of 7 that is greater than 50.
+let ex12 =
+    Write(
+        Prim("<",
+            CstI 50,
+            Prim("*", CstI 7, FromTo(1, 10))
+        )
+    );
+
+// (iii)
+// square(3 to 6)
+let ex13 = Every(Write(Prim1("sqr", FromTo(3, 6))));
+
+// even(1 to 7)
+let ex14 = Every(Write(Prim1("even", FromTo(1, 7))));
+
+// prints multiples of 2 forever
+let ex15 = Every(Write(Prim1("multiples", CstI 2)));
