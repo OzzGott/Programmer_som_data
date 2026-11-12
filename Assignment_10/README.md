@@ -17,7 +17,8 @@ with:
 
 `IFNZRO L2; Label 1`
 
-i replaced all occurences of `IFZERO Lab :: code` with `addIFZERO lab code`
+- Wrote a similar function, `addIFNZRO` which does essentially the same thing, but for IFNZRO.
+- Replaced all occurences of `IFZERO Lab :: code` with `addIFZERO lab code` and likewise for IFNZRO.
 
 ### Exercise 12.2
 
