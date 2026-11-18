@@ -1,4 +1,4 @@
-// micro-C example 18 -- if within if
+`// micro-C example 18 -- if within if
 
 void main(int m, int n) {
   if (m == 0) {

@@ -12,6 +12,8 @@ type token =
   | COMMA
   | ASSIGN
   | AMP
+  | COLON
+  | COND
   | NOT
   | SEQOR
   | SEQAND
@@ -52,6 +54,8 @@ type tokenId =
     | TOKEN_COMMA
     | TOKEN_ASSIGN
     | TOKEN_AMP
+    | TOKEN_COLON
+    | TOKEN_COND
     | TOKEN_NOT
     | TOKEN_SEQOR
     | TOKEN_SEQAND

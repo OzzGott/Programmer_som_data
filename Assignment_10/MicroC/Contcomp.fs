@@ -99,7 +99,9 @@ let rec addCST i c =
     | (1, MUL        :: c1) -> c1
     | (1, DIV        :: c1) -> c1
     | (0, EQ         :: c1) -> addNOT c1
-    | (i, LT :: CSTI i' :: c1) -> if i' < i then addCST 1 c1 else addCST 0 c1
+    | (i, CSTI i' :: EQ :: c1)         -> if i = i' then addCST 1 c1 else addCST 0 c1       // 12.2
+    | (i, CSTI i' :: LT :: c1)         -> if i < i' then addCST 1 c1 else addCST 0 c1       // 12.2
+    | (i, CSTI i' :: SWAP :: LT :: c1) -> if i' < i then addCST 1 c1 else addCST 0 c1       // 12.2
     | (_, INCSP m    :: c1) -> if m < 0 then addINCSP (m+1) c1
                                else CSTI i :: c
     | (0, IFZERO lab :: c1) -> addGOTO lab c1
@@ -107,19 +109,19 @@ let rec addCST i c =
     | (0, IFNZRO lab :: c1) -> c1
     | (_, IFNZRO lab :: c1) -> addGOTO lab c1
     | _                     -> CSTI i :: c
-            
+            // i1 > i2 -> 
+ 
+    // LT :: c
            
 (* 12.1: addIFZERO *)
 let addIFZERO lab3 c = 
     match c with
-    | IFZERO lab0 :: GOTO lab1 :: Label lab2 :: rs when lab0 = lab2
-         -> IFNZRO lab1 :: Label lab0 :: rs
+    | GOTO lab2 :: Label lab1 :: rs when lab1 = lab3 -> IFNZRO lab2 :: Label lab1 :: rs
     | _  -> IFZERO lab3 :: c
     
 let addIFNZRO lab3 c =
     match c with
-    | IFNZRO lab0 :: GOTO lab1 :: Label lab2 :: rs when lab0 = lab2
-         -> IFZERO lab1 :: Label lab0 :: rs
+    | GOTO lab2 :: Label lab1 :: rs when lab1 = lab3 -> IFZERO lab2 :: Label lab1 :: rs
     | _  -> IFNZRO lab3 :: c
  
 (* ------------------------------------------------------------------- *)
@@ -318,6 +320,11 @@ and cExpr (e : expr) (varEnv : varEnv) (funEnv : funEnv) (c : instr list) : inst
            (addIFNZRO labtrue                                                  // 12.1
              (cExpr e2 varEnv funEnv (addJump jumpend c2)))
     | Call(f, es) -> callfun f es varEnv funEnv c
+    | Cond(e1, e2, e3) ->                                                      // 12.3 
+      let (jumpend, c1) = makeJump c
+      let (labelse, c2) = addLabel (cExpr e3 varEnv funEnv c1)                 // else
+      cExpr e1 varEnv funEnv (addIFZERO labelse (                              
+          cExpr e2 varEnv funEnv (addJump jumpend c2)))                        // then
 
 (* Generate code to access variable, dereference pointer or index array: *)
 
@@ -385,3 +392,5 @@ let compileToFile program fname =
     intsToFile bytecode fname; instrs
 
 (* Example programs are found in the files ex1.c, ex2.c, etc *)
+
+let condtest = cExpr (Cond(CstI 1, CstI 1111, CstI 2222)) ([], 0) [] [];
